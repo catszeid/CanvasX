@@ -1,6 +1,5 @@
 /*****
  * Author: Keith Maitland
- * Version 1.3
 *****/
 
 /**
@@ -140,8 +139,84 @@ function CanvasX(id) {
 	// Arcs
 	
 	/**
-	 * drawCurve(sx,sy,x1,y1,x2,y2,radius)
+	 * drawArc(x,y,r,sAngle,eAngle,ccw)
+	 * Purpose: Draw an arc
+	 * Input: x - center x position
+	 *		  y - center y position
+	 *		  r - radius
+	 *		  sAngle - starting angle
+	 *		  eAngle - ending angle
+	 *		  ccw - counterclock wise
+	 * Output: Arc on canvas
+	 * Note: see canvas arc()
 	 */
+	self.drawArc = function (x,y,r,sAngle,rAngle,ccw) {
+		var countercw = ccw || false;
+		self.ctx.beginPath();
+		self.ctx.arc(x,y,r,sAngle,eAngle,countercw);
+		self.ctx.closePath();
+		self.ctx.stroke();
+	}
+	
+	/**
+	 * fillArc(x,y,r,sAngle,eAngle,ccw)
+	 * Purpose: Fill an arc
+	 * Input: x - center x position
+	 *		  y - center y position
+	 *		  r - radius
+	 *		  sAngle - starting angle
+	 *		  eAngle - ending angle
+	 *		  ccw - counterclock wise
+	 * Output: Arc on canvas
+	 * Note: see canvas arc()
+	 */
+	self.fillArc = function (x,y,r,sAngle,rAngle,ccw) {
+		var countercw = ccw || false;
+		self.ctx.beginPath();
+		self.ctx.arc(x,y,r,sAngle,eAngle,countercw);
+		self.ctx.closePath();
+		self.ctx.fill();
+	}
+	
+	/**
+	 * drawCurve(sx,sy,x1,y1,x2,y2,radius)
+	 * Purpose: Draw a arc from start with radius
+	 * Input: sx - start x position
+	 *		  sy - start y position
+	 *		  x1 - first tangent x position
+	 *		  y1 - first tangent y position
+	 *		  x2 - second tangent x position
+	 *		  radius - radius of corner
+	 * Output: Curve on canvas
+	 * Note: see canvas arcTo()
+	 */
+	self.drawCurve = function(sx,sy,x1,y1,x2,y2,radius) {
+		self.ctx.beginPath();
+		self.ctx.moveTo(sx,sy);
+		self.ctx.arcTo(x1,y1,x2,y2,radius);
+		self.ctx.closePath();
+		self.ctx.stroke();
+	}
+	
+	/**
+	 * fillCurve(sx,sy,x1,y1,x2,y2,radius)
+	 * Purpose: Fill a arc from start with radius
+	 * Input: sx - start x position
+	 *		  sy - start y position
+	 *		  x1 - first tangent x position
+	 *		  y1 - first tangent y position
+	 *		  x2 - second tangent x position
+	 *		  radius - radius of corner
+	 * Output: Curve on canvas
+	 * Note: see canvas arcTo()
+	 */
+	self.fillCurve = function(sx,sy,x1,y1,x2,y2,radius) {
+		self.ctx.beginPath();
+		self.ctx.moveTo(sx,sy);
+		self.ctx.arcTo(x1,y1,x2,y2,radius);
+		self.ctx.closePath();
+		self.ctx.stroke();
+	}
 	
 	/** 
 	 * drawQuadratic(sx,sy,px,py,x1,y1)
@@ -153,8 +228,9 @@ function CanvasX(id) {
 	 *		  x1 - end point x position
 	 *		  y1 - end point y position
 	 * Output: Quadratic curve on canvas
+	 * Note: see
 	 */
-	self.drawQuadratic(sx,sy,px,py,x1,y1) {
+	self.drawQuadratic = function(sx,sy,px,py,x1,y1) {
 		self.ctx.beginPath();
 		self.ctx.moveTo(sx,sy);
 		self.ctx.quadraticCurveTo(px,py,x1,y1);
@@ -172,7 +248,7 @@ function CanvasX(id) {
 	 *		  y1 - end point y position
 	 * Output: Quadratic curve on canvas
 	 */
-	self.fillQuadratic(sx,sy,px,py,x1,y1) {
+	self.fillQuadratic = function(sx,sy,px,py,x1,y1) {
 		self.ctx.beginPath();
 		self.ctx.moveTo(sx,sy);
 		self.ctx.quadraticCurveTo(px,py,x1,y1);
@@ -192,7 +268,7 @@ function CanvasX(id) {
 	 *		  y1 - end point y position
 	 * Output: Cubic curve on canvas
 	 */
-	self.drawCubic(sx,sy,px1,py1,px2,py2,x1,y1) {
+	self.drawCubic = function(sx,sy,px1,py1,px2,py2,x1,y1) {
 		self.ctx.beginPath();
 		self.ctx.moveTo(sx,sy);
 		self.ctx.bezierCurveTo(px1,py1,px2,py2,x1,y1);
@@ -212,7 +288,7 @@ function CanvasX(id) {
 	 *		  y1 - end point y position
 	 * Output: Cubic curve on canvas
 	 */
-	self.fillCubic(sx,sy,px1,py1,px2,py2,x1,y1) {
+	self.fillCubic = function(sx,sy,px1,py1,px2,py2,x1,y1) {
 		self.ctx.beginPath();
 		self.ctx.moveTo(sx,sy);
 		self.ctx.bezierCurveTo(px1,py1,px2,py2,x1,y1);
